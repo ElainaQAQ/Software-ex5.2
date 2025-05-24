@@ -106,6 +106,8 @@ for i, img_path in enumerate(next_rock+next_paper+next_scissors):
 
 
 
+调用TensorFlow的keras进行数据模型的训练和评估。Keras是开源人工神经网络库，TensorFlow集成了keras的调用接口，可以方便的使用。
+
 ```python
 import tensorflow as tf
 import keras_preprocessing
@@ -263,6 +265,15 @@ model.save("rps.h5")
     Epoch 25/25
     20/20 [==============================] - 43s 2s/step - loss: 0.1600 - accuracy: 0.9444 - val_loss: 0.0483 - val_accuracy: 0.9812
     
+
+
+ImageDataGenerator是Keras中图像预处理的类，经过预处理使得后续的训练更加准确。
+
+Sequential定义了序列化的神经网络，封装了神经网络的结构，有一组输入和一组输出。可以定义多个神经层，各层之间按照先后顺序堆叠，前一层的输出就是后一层的输入，通过多个层的堆叠，构建出神经网络。
+
+神经网络两个常用的操作：卷积和池化。由于图片中可能包含干扰或者弱信息，使用卷积处理（此处的Conv2D函数）使得我们能够找到特定的局部图像特征（如边缘）。此处使用了3X3的滤波器（通常称为垂直索伯滤波器）。而池化（此处的MaxPooling2D）的作用是降低采样，因为卷积层输出中包含很多冗余信息。池化通过减小输入的大小降低输出值的数量。详细的信息可以参考知乎回答“如何理解卷积神经网络（CNN）中的卷积和池化？”。更多的卷积算法参考Github Convolution arithmetic。
+
+Dense的操作即全连接层操作，本质就是由一个特征空间线性变换到另一个特征空间。Dense层的目的是将前面提取的特征，在dense经过非线性变化，提取这些特征之间的关联，最后映射到输出空间上。Dense这里作为输出层。
 
 
 ```python
